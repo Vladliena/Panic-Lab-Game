@@ -139,7 +139,8 @@ generate(start_game);
 function moveMarker(steps, start_direction, startingRoom) {
     const totalRooms = 12;
     const reversedRooms = [2, 6, 10];
-
+    const cellIds = Array.from({ length: totalRooms }, (_, i) => `cell${i + 1}`);
+    console.log('steps: ', steps, 'start_direction', start_direction, 'starttingRoom : ', startingRoom);
     function getNextRoom(room, current_direction) {
         return (room + current_direction + totalRooms - 1) % totalRooms + 1;
     }
@@ -154,6 +155,9 @@ function moveMarker(steps, start_direction, startingRoom) {
         if (reversedRooms.includes(currentRoom)) {
             direction *= -1;
         }
+        console.log('currentRoom: ', currentRoom, 'direction: ', direction);
     }
-    return currentRoom;
+    const finalCell = cellIds[currentRoom - 1];
+    document.getElementById(finalCell).classList.add('marker');
+    // return currentRoom;
 }
