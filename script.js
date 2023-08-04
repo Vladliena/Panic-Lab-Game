@@ -126,8 +126,7 @@ function start_game() {
         generatedDiv.appendChild(startButton)
         startButton.addEventListener("click", function () {
             generatedDiv.style.display = 'none'
-            let finalCell = moveMarker(numberValue, stringValue, getRandomCellId())
-            console.log(finalCell)
+            moveMarker(numberValue, stringValue, getRandomCellId()) // calling function to start Monster movement, with steps number, direction and random number for start cell
         });
     }
 }
@@ -163,8 +162,6 @@ function moveMarker(startingCell, direction, steps) {
     }
 
     const finalCell = cellIds[newIndex];
-    document.getElementById(finalCell).classList.add('marker'); // Fuction just for now to see what is the end Cell (Will delete later)
-
-    return finalCell;
+    document.getElementById(finalCell).classList.add('marker'); // Fuction just for now to see the end Cell (Will delete later)
 }
 
