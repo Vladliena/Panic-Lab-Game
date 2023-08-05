@@ -86,7 +86,7 @@ body {
   top: 250px
 }
 
-#generate-button{
+#generate-button {
   position: absolute;
   top: 125px;
   font-family: "Martian Mono", monospace;
@@ -176,7 +176,7 @@ select {
   margin-bottom: 15px;
 }
 
-.button_submit{
+.button_submit {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #004997;
@@ -206,14 +206,17 @@ select {
   font-family: 'Martian Mono',
     monospace;
   font-weight: 400;
-  color: #333333;;
+  color: #333333;
+  ;
   text-align: center;
-  font-size: 15px;
+  font-size: 13px;
+  width: 400px;
 }
 
 .monster_text>span {
-  font-size: 20px;
-  color: #ff6347;;
+  font-size: 17px;
+  color: #ff6347;
+  ;
 }
 
 img {
@@ -284,7 +287,8 @@ img {
   margin-bottom: 10px;
 }
 
-.popup-content button,.start_button {
+.popup-content button,
+.start_button {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #ff6347;
@@ -295,10 +299,23 @@ img {
   transition: background-color 0.3s;
 }
 
-.start_button:hover{
+.start_button:hover {
   background-color: #e74c3c;
 }
 
 .popup-content button:hover {
   background-color: #e74c3c;
+}
+
+#timer {
+  font-family: "Martian Mono", monospace;
+  font-size: 28px;
+  color: #333;
+  padding: 8px 15px;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  top: 260px;
+  left: 260px;
+  display: none;
 }

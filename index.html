@@ -25,11 +25,14 @@
                 <li>After the Monster moves, enter your guess in the input field and click "Submit".</li>
             </ul>
             <p>Enter your name to begin:</p>
+            <form action="#" class="name_form">
             <input type="text" id="player-name" placeholder="Your Name">
-            <button id="start-button">Start Game</button>
+            <button id="start-button-pop">Lets Start</button>
+            </form>
         </div>
     </div>
     <div class="game_board">
+        <div id="timer"></div>
         <div id=cell1 class="cell"> 1</div>
         <div id=cell2 class="cell"> 2</div>
         <div id=cell3 class="cell cell_color_shift"> 3</div>
@@ -67,5 +70,4 @@
     </div>
 </body>
 <script src="script.js"></script>
-<script  src="test2.js"></script>
 </html>

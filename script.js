@@ -1,6 +1,9 @@
+//Welcome Screen
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
-    const startButton = document.getElementById("start-button");
+    const startButton = document.getElementById("start-button-pop");
 
     startButton.addEventListener("click", function () {
         const playerName = document.getElementById("player-name").value;
@@ -15,171 +18,145 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// Dynamic Form for USER at the end of the game
+//Basic Monster Data
 
-// Form will appear when game ends (dont have this point at the moment)
 
-// const form = document.getElementsByClassName('form_main')[0]
-// form.style.display = 'flex'
+const monsterData = {
+    color: ['red', 'blue'],
+    shape: ['round', 'square'],
+    direction: ['left', 'right'],
+    steps: [6, 7, 8, 9, 10, 11, 12],
+    startcell: () => Math.floor(Math.random() * 7) + 6
+};
 
-const colorSelect = document.getElementById('input_color');
-const shapeSelectContainer = document.getElementById('shape-select-container');
+// Generate Monster function
 
-colorSelect.addEventListener('change', function () {
-    shapeSelectContainer.innerHTML = '';
+function generateRandomMonster() {
+    return {
+        color: monsterData.color[Math.floor(Math.random() * monsterData.color.length)],
+        shape: monsterData.shape[Math.floor(Math.random() * monsterData.shape.length)],
+        direction: monsterData.direction[Math.floor(Math.random() * monsterData.direction.length)],
+        steps: monsterData.steps[Math.floor(Math.random() * monsterData.steps.length)],
+        startcell: monsterData.startcell()
+    };
+}
 
-    if (colorSelect.value !== '') {
-        const shapeOptions = [
-            { value: '', text: 'Select bacteria shape', },
-            { value: 'round', text: 'Round', },
-            { value: 'square', text: 'Square', },
-        ];
 
-        const shapeSelect = document.createElement('select');
-        shapeSelect.name = 'shape';
-        shapeSelect.id = 'input_shape';
-        shapeSelectContainer.appendChild(shapeSelect);
+// Generate button + showing monster generated + add start game button
 
-        shapeOptions.forEach(option => {
-            const optionElement = document.createElement('option');
-            optionElement.value = option.value;
-            optionElement.textContent = option.text;
-            shapeSelect.appendChild(optionElement);
-        });
 
-        shapeSelectContainer.style.opacity = 0;
-        let opacity = 0;
-        const fadeInInterval = setInterval(() => {
-            opacity += 0.05;
-            shapeSelectContainer.style.opacity = opacity;
-            if (opacity >= 1) {
-                clearInterval(fadeInInterval);
-            }
-        }, 50);
+const generateDiv = document.getElementById('generate_div');
+const buttonGenerate = document.getElementById('generate-button');
+buttonGenerate.addEventListener('click',generate)
+
+
+function generate() {
+    buttonGenerate.style.display = 'none';
+    let monster = generateRandomMonster();
+    monsterSteps = Number(monster.steps)
+    console.log(monster);
+    const monsterProperties = `
+        <p class="monster_text">
+            <span>Monster properties:</span><br><br>
+            Color: ${monster.color}<br>
+            Shape: ${monster.shape}<br>
+            Direction: ${monster.direction}<br>
+            Steps: ${monster.steps}<br>
+        </p>
+    `;
+    generateDiv.innerHTML += monsterProperties;
+    const imageMonster = document.querySelectorAll('img');
+    imageMonster.forEach(image => image.style.display = 'none');
+
+    if (monster.color === 'blue' && monster.shape === 'round') {
+        imageMonster[0].style.display = 'block';
+    } else if (monster.color === 'blue' && monster.shape === 'square') {
+        imageMonster[1].style.display = 'block';
+    } else if (monster.color === 'red' && monster.shape === 'square') {
+        imageMonster[3].style.display = 'block';
+    } else if (monster.color === 'red' && monster.shape === 'round') {
+        imageMonster[2].style.display = 'block';
     }
-});
 
-
-
-// Get data from JSON (at the moment not sure that it is the best way, maybe could do it shorter)
-
-let globalData;
-
-async function foo() {
-    const res = await fetch('monsters.json');
-    const data = await res.json();
-    return data;
-}
-
-async function getData() {
-    try {
-        globalData = await foo();
-        ({ numberValue, stringValue } = processExtractedData(globalData));
-        processExtractedData(globalData);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
-//Get steps and direction
-
-let numberValue;
-let stringValue;
-
-
-function processExtractedData(data) {
-    let numberValue = data[3];
-    let stringValue = data[2];
-    return { numberValue, stringValue }
-}
-
-getData();
-
-// Generate Monster
-
-let generationComplete = false;
-
-function generate(callback) {
-    const button_generate = document.getElementById('generate-button');
-    const generate_div = document.getElementById('generate_div')
-
-    button_generate.addEventListener("click", function () {
-        button_generate.style.display = 'none';
-        generate_div.innerHTML += `<p class = 'monster_text'><span>Monster properties</span> <br><br> ${globalData}</p>`
-        for (var i = 0; i < globalData.length; i++) {
-            image_monster = document.querySelectorAll('img')
-            if (globalData.includes('blue') && globalData.includes('round')) {
-                image_monster[0].style.display = 'block'
-            } else if (globalData.includes('blue') && globalData.includes('square')) {
-                image_monster[1].style.display = 'block'
-            } else if (globalData.includes('red') && globalData.includes('square')) {
-                image_monster[3].style.display = 'block'
-            } else if (globalData.includes('red') && globalData.includes('round')) {
-                image_monster[2].style.display = 'block'
-            }
-        }
-
-        generationComplete = true;
-
-        if (typeof callback === 'function') {
-            callback();
-        }
-    });
-
-    return generate_div
-}
-
-
-
-// Start Game Button
-
-
-function getRandomCellId() {
-    const totalCells = 12;
-    const randomIndex = Math.floor(Math.random() * totalCells);
-    console.log('random index of cell:', randomIndex);
-    return randomIndex;
-}
-
-// Start Game Button
-function start_game() {
+    generationComplete = true;
     if (generationComplete) {
         const generatedDiv = document.getElementById('generate_div');
         const startButton = document.createElement('button');
         startButton.classList.add('start_button');
         startButton.textContent = 'Start Game';
-        generatedDiv.appendChild(startButton)
+        generatedDiv.appendChild(startButton);
         startButton.addEventListener("click", function () {
-            generatedDiv.style.display = 'none'
-            moveMarker(numberValue, stringValue, getRandomCellId() + 1) // calling function to start Monster movement, with steps number, direction and random number for start cell
+            startTimer(monster.steps);
+            generatedDiv.style.display = 'none';
         });
     }
+    return monster
 }
 
-generate(start_game);
 
-//Start movement of Monster
-function moveMarker(steps, start_direction, startingRoom) {
-    const totalRooms = 12;
-    const reversedRooms = [2, 6, 10];
-    const cellIds = Array.from({ length: totalRooms }, (_, i) => `cell${i + 1}`);
-    console.log('steps: ', steps, 'start_direction', start_direction, 'starttingRoom : ', startingRoom);
-    function getNextRoom(room, current_direction) {
-        return (room + current_direction + totalRooms - 1) % totalRooms + 1;
-    }
 
-    let direction = start_direction === 'right' ? 1 : -1;
-    let currentRoom = startingRoom;
-    direction = reversedRooms.includes(currentRoom) ? direction * -1 : direction;
+let countdown = 0;
 
-    for (let i = 0; i < steps; i++) {
-        currentRoom = getNextRoom(currentRoom, direction);
+function startTimer(steps) {
+    const timerElement = document.getElementById('timer');
+    timerElement.style.display = 'block'
+    countdown = steps;
+    timerElement.textContent = countdown;
 
-        if (reversedRooms.includes(currentRoom)) {
-            direction *= -1;
+    const timerInterval = setInterval(() => {
+        countdown--;
+        timerElement.textContent = countdown;
+
+        if (countdown === 0) {
+            clearInterval(timerInterval);
         }
-        console.log('currentRoom: ', currentRoom, 'direction: ', direction);
-    }
-    const finalCell = cellIds[currentRoom - 1];
+    }, 2000);
 }
+
+
+
+//User Form at the end of the Game
+
+
+
+// const form = document.getElementsByClassName('form_main')[0]
+// form.style.display = 'flex'
+
+
+// const colorSelect = document.getElementById('input_color');
+// const shapeSelectContainer = document.getElementById('shape-select-container');
+
+// colorSelect.addEventListener('change', function () {
+//     shapeSelectContainer.innerHTML = '';
+
+//     if (colorSelect.value !== '') {
+//         const shapeOptions = [
+//             { value: '', text: 'Select bacteria shape', },
+//             { value: 'round', text: 'Round', },
+//             { value: 'square', text: 'Square', },
+//         ];
+
+//         const shapeSelect = document.createElement('select');
+//         shapeSelect.name = 'shape';
+//         shapeSelect.id = 'input_shape';
+//         shapeSelectContainer.appendChild(shapeSelect);
+
+//         shapeOptions.forEach(option => {
+//             const optionElement = document.createElement('option');
+//             optionElement.value = option.value;
+//             optionElement.textContent = option.text;
+//             shapeSelect.appendChild(optionElement);
+//         });
+
+//         shapeSelectContainer.style.opacity = 0;
+//         let opacity = 0;
+//         const fadeInInterval = setInterval(() => {
+//             opacity += 0.05;
+//             shapeSelectContainer.style.opacity = opacity;
+//             if (opacity >= 1) {
+//                 clearInterval(fadeInInterval);
+//             }
+//         }, 50);
+//     }
+// });
 
