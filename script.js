@@ -1,3 +1,20 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const popup = document.getElementById("popup");
+    const startButton = document.getElementById("start-button");
+
+    startButton.addEventListener("click", function () {
+        const playerName = document.getElementById("player-name").value;
+        if (playerName.trim() === "") {
+            alert("Please enter your name.");
+        } else {
+            popup.style.display = "none";
+        }
+    });
+
+    popup.style.display = "flex";
+});
+
+
 // Dynamic Form for USER at the end of the game
 
 // Form will appear when game ends (dont have this point at the moment)
@@ -117,6 +134,14 @@ function generate(callback) {
 // Start Game Button
 
 
+function getRandomCellId() {
+    const totalCells = 12;
+    const randomIndex = Math.floor(Math.random() * totalCells);
+    console.log('random index of cell:', randomIndex);
+    return randomIndex;
+}
+
+// Start Game Button
 function start_game() {
     if (generationComplete) {
         const generatedDiv = document.getElementById('generate_div');
@@ -126,42 +151,35 @@ function start_game() {
         generatedDiv.appendChild(startButton)
         startButton.addEventListener("click", function () {
             generatedDiv.style.display = 'none'
-            moveMarker(numberValue, stringValue, getRandomCellId()) // calling function to start Monster movement, with steps number, direction and random number for start cell
+            moveMarker(numberValue, stringValue, getRandomCellId() + 1) // calling function to start Monster movement, with steps number, direction and random number for start cell
         });
     }
 }
 
-generate(start_game)
-
-
-
-//Generate random number of cell to start
-
-function getRandomCellId() {
-    const totalCells = 12;
-    const randomIndex = Math.floor(Math.random() * totalCells);
-    return randomIndex + 1;
-}
+generate(start_game);
 
 //Start movement of Monster
-
-
-function moveMarker(startingCell, direction, steps) {
-    const totalCells = 12;
-    const cellIds = Array.from({ length: totalCells }, (_, i) => `cell${i + 1}`);
-    const startIndex = cellIds.indexOf(`cell${startingCell}`);
-
-    let newIndex;
-    if (direction === 'left') {
-        newIndex = (startIndex - steps + totalCells) % totalCells;
-    } else if (direction === 'right') {
-        newIndex = (startIndex + steps) % totalCells;
-    } else {
-        console.error('Invalid direction');
-        return null;
+function moveMarker(steps, start_direction, startingRoom) {
+    const totalRooms = 12;
+    const reversedRooms = [2, 6, 10];
+    const cellIds = Array.from({ length: totalRooms }, (_, i) => `cell${i + 1}`);
+    console.log('steps: ', steps, 'start_direction', start_direction, 'starttingRoom : ', startingRoom);
+    function getNextRoom(room, current_direction) {
+        return (room + current_direction + totalRooms - 1) % totalRooms + 1;
     }
 
-    const finalCell = cellIds[newIndex];
-    document.getElementById(finalCell).classList.add('marker'); // Fuction just for now to see the end Cell (Will delete later)
+    let direction = start_direction === 'right' ? 1 : -1;
+    let currentRoom = startingRoom;
+    direction = reversedRooms.includes(currentRoom) ? direction * -1 : direction;
+
+    for (let i = 0; i < steps; i++) {
+        currentRoom = getNextRoom(currentRoom, direction);
+
+        if (reversedRooms.includes(currentRoom)) {
+            direction *= -1;
+        }
+        console.log('currentRoom: ', currentRoom, 'direction: ', direction);
+    }
+    const finalCell = cellIds[currentRoom - 1];
 }
 

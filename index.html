@@ -14,23 +14,38 @@
 </head>
 
 <body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Welcome to Panic Lab Game!</h2>
+            <p>Please read the game rules:</p>
+            <ul>
+                <li>Your task is to guess the final color and shape of the Monster after its movement.</li>
+                <li>Click the "Generate Monster" button to start the game.</li>
+                <li>The Monster can change shape (round or square) and color (red or blue).</li>
+                <li>After the Monster moves, enter your guess in the input field and click "Submit".</li>
+            </ul>
+            <p>Enter your name to begin:</p>
+            <input type="text" id="player-name" placeholder="Your Name">
+            <button id="start-button">Start Game</button>
+        </div>
+    </div>
     <div class="game_board">
         <div id=cell1 class="cell"> 1</div>
         <div id=cell2 class="cell"> 2</div>
-        <div id=cell3 class="cell"> 3</div>
+        <div id=cell3 class="cell cell_color_shift"> 3</div>
         <div id=cell4 class="cell"> 4</div>
         <div id=cell5 class="cell"> 5</div>
-        <div id=cell6 class="cell"> 6</div>
+        <div id=cell6 class="cell cell_shape_shift"> 6</div>
         <div id=cell7 class="cell"> 7</div>
-        <div id=cell8 class="cell"> 8</div>
+        <div id=cell8 class="cell cell_direction_shift"> 8</div>
         <div id=cell9 class="cell"> 9</div>
-        <div id=cell10 class="cell"> 10</div>
+        <div id=cell10 class="cell cell_color_shift"> 10</div>
         <div id=cell11 class="cell"> 11</div>
-        <div id=cell12 class="cell"> 12</div>
+        <div id=cell12 class="cell cell_shape_shift"> 12</div>
     </div>
     <div class="center-content">
         <div id="generate_div">
-        <button id="generate-button" class="glow-on-hover">Generate Bacteria</button>
+        <button id="generate-button" class="glow-on-hover">Generate Monster</button>
         <img class = 'blue_round_monster'  src="images/blue round.png" alt="img">
         <img class = 'blue_square_monster'  src="images/blue square.png" alt="img">
         <img class = 'red_round_monster'  src="images/red round.png" alt="img">
@@ -52,4 +67,5 @@
     </div>
 </body>
 <script src="script.js"></script>
+<script  src="test2.js"></script>
 </html>

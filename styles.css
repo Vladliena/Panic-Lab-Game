@@ -88,7 +88,8 @@ body {
 
 #generate-button{
   position: absolute;
-  top: 125px
+  top: 125px;
+  font-family: "Martian Mono", monospace;
 }
 
 .glow-on-hover {
@@ -175,8 +176,7 @@ select {
   margin-bottom: 15px;
 }
 
-.button_submit,
-.start_button {
+.button_submit{
   padding: 10px 20px;
   font-size: 16px;
   background-color: #004997;
@@ -206,13 +206,14 @@ select {
   font-family: 'Martian Mono',
     monospace;
   font-weight: 400;
-  color: #004997;
+  color: #333333;;
   text-align: center;
   font-size: 15px;
 }
 
 .monster_text>span {
   font-size: 20px;
+  color: #ff6347;;
 }
 
 img {
@@ -222,4 +223,82 @@ img {
 
 .marker {
   background-color: red;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  padding: 0 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.popup-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Martian Mono", monospace;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Additional styles for the popup */
+.popup-content h2 {
+  color: #ff6347;
+  margin-bottom: 10px;
+}
+
+.popup-content p {
+  color: #333333;
+  margin-bottom: 15px;
+}
+
+.popup-content ul {
+  text-align: left;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.popup-content li::before {
+  content: "\2022";
+  color: #ff6347;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  margin-bottom: 5px;
+}
+
+.popup-content input[type="text"] {
+  width: 40%;
+  padding: 8px;
+  font-family: "Martian Mono", monospace;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.popup-content button,.start_button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ff6347;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start_button:hover{
+  background-color: #e74c3c;
+}
+
+.popup-content button:hover {
+  background-color: #e74c3c;
 }
