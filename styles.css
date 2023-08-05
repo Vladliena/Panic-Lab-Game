@@ -160,14 +160,6 @@ body {
   }
 }
 
-input {
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 16px;
-  border: 2px solid #cccccc;
-  border-radius: 5px;
-  width: 230px;
-}
 
 select {
   padding: 10px 20px;

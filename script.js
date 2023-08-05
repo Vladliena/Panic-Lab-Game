@@ -1,6 +1,5 @@
 //Welcome Screen
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
     const startButton = document.getElementById("start-button-pop");
@@ -47,7 +46,7 @@ function generateRandomMonster() {
 
 const generateDiv = document.getElementById('generate_div');
 const buttonGenerate = document.getElementById('generate-button');
-buttonGenerate.addEventListener('click',generate)
+buttonGenerate.addEventListener('click', generate)
 
 
 function generate() {
@@ -94,6 +93,8 @@ function generate() {
 }
 
 
+// Start Timer
+
 
 let countdown = 0;
 
@@ -116,51 +117,26 @@ function startTimer(steps) {
 }
 
 
+// User Input
 
-
-function userInput(){
+function userInput() {
     const form = document.getElementsByClassName('form_main')[0]
     form.style.display = 'flex'
 
 
     const colorSelect = document.getElementById('input_color');
     const shapeSelectContainer = document.getElementById('shape-select-container');
+    shapeSelectContainer.style.opacity = 0;
 
     colorSelect.addEventListener('change', function () {
-        shapeSelectContainer.innerHTML = '';
-
-        if (colorSelect.value !== '') {
-            const shapeOptions = [
-                { value: '', text: 'Select bacteria shape', },
-                { value: 'round', text: 'Round', },
-                { value: 'square', text: 'Square', },
-            ];
-
-            const shapeSelect = document.createElement('select');
-            shapeSelect.name = 'shape';
-            shapeSelect.id = 'input_shape';
-            shapeSelectContainer.appendChild(shapeSelect);
-
-            shapeOptions.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option.value;
-                optionElement.textContent = option.text;
-                shapeSelect.appendChild(optionElement);
-            });
-
-            shapeSelectContainer.style.opacity = 0;
-            let opacity = 0;
-            const fadeInInterval = setInterval(() => {
-                opacity += 0.05;
-                shapeSelectContainer.style.opacity = opacity;
-                if (opacity >= 1) {
-                    clearInterval(fadeInInterval);
-                }
-            }, 50);
-        }
+        let opacity = 0;
+        const fadeInInterval = setInterval(() => {
+            opacity += 0.05;
+            shapeSelectContainer.style.opacity = opacity;
+            if (opacity >= 1) {
+                clearInterval(fadeInInterval);
+            }
+        }, 50);
     });
-
-
-
 }
 
