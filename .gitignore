@@ -1,11 +1,3 @@
-funcionality.py
-monster.py
-room.py
-genereate.py
-_pycache_
-.vscode
-/Vladlena_files
-
-
-
-
+/__pycache__/
+/.vscode/
+/work_files/
