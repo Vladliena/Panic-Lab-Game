@@ -109,54 +109,58 @@ function startTimer(steps) {
 
         if (countdown === 0) {
             clearInterval(timerInterval);
+            timerElement.style.display = 'none'
+            return userInput()
         }
     }, 2000);
 }
 
 
 
-//User Form at the end of the Game
+
+function userInput(){
+    const form = document.getElementsByClassName('form_main')[0]
+    form.style.display = 'flex'
+
+
+    const colorSelect = document.getElementById('input_color');
+    const shapeSelectContainer = document.getElementById('shape-select-container');
+
+    colorSelect.addEventListener('change', function () {
+        shapeSelectContainer.innerHTML = '';
+
+        if (colorSelect.value !== '') {
+            const shapeOptions = [
+                { value: '', text: 'Select bacteria shape', },
+                { value: 'round', text: 'Round', },
+                { value: 'square', text: 'Square', },
+            ];
+
+            const shapeSelect = document.createElement('select');
+            shapeSelect.name = 'shape';
+            shapeSelect.id = 'input_shape';
+            shapeSelectContainer.appendChild(shapeSelect);
+
+            shapeOptions.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.textContent = option.text;
+                shapeSelect.appendChild(optionElement);
+            });
+
+            shapeSelectContainer.style.opacity = 0;
+            let opacity = 0;
+            const fadeInInterval = setInterval(() => {
+                opacity += 0.05;
+                shapeSelectContainer.style.opacity = opacity;
+                if (opacity >= 1) {
+                    clearInterval(fadeInInterval);
+                }
+            }, 50);
+        }
+    });
 
 
 
-// const form = document.getElementsByClassName('form_main')[0]
-// form.style.display = 'flex'
-
-
-// const colorSelect = document.getElementById('input_color');
-// const shapeSelectContainer = document.getElementById('shape-select-container');
-
-// colorSelect.addEventListener('change', function () {
-//     shapeSelectContainer.innerHTML = '';
-
-//     if (colorSelect.value !== '') {
-//         const shapeOptions = [
-//             { value: '', text: 'Select bacteria shape', },
-//             { value: 'round', text: 'Round', },
-//             { value: 'square', text: 'Square', },
-//         ];
-
-//         const shapeSelect = document.createElement('select');
-//         shapeSelect.name = 'shape';
-//         shapeSelect.id = 'input_shape';
-//         shapeSelectContainer.appendChild(shapeSelect);
-
-//         shapeOptions.forEach(option => {
-//             const optionElement = document.createElement('option');
-//             optionElement.value = option.value;
-//             optionElement.textContent = option.text;
-//             shapeSelect.appendChild(optionElement);
-//         });
-
-//         shapeSelectContainer.style.opacity = 0;
-//         let opacity = 0;
-//         const fadeInInterval = setInterval(() => {
-//             opacity += 0.05;
-//             shapeSelectContainer.style.opacity = opacity;
-//             if (opacity >= 1) {
-//                 clearInterval(fadeInInterval);
-//             }
-//         }, 50);
-//     }
-// });
+}
 

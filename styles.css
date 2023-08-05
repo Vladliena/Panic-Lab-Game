@@ -176,16 +176,6 @@ select {
   margin-bottom: 15px;
 }
 
-.button_submit {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #004997;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .form_main {
   display: none;
   flex-direction: column;
@@ -288,7 +278,7 @@ img {
 }
 
 .popup-content button,
-.start_button {
+.start_button,.button_submit {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #ff6347;
