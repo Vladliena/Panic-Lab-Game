@@ -10,46 +10,77 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;500;700&family=Spline+Sans+Mono:wght@500&family=Staatliches&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+
 </head>
 
 <body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Welcome to Panic Lab Game!</h2>
+            <p>Please read the game rules:</p>
+            <ul>
+                <li>Your task is to guess the final color and shape of the Monster after its movement.</li>
+                <li>Click the "Generate Monster" button to start the game.</li>
+                <li>The Monster can change shape (round or square) and color (red or blue).</li>
+                <li>After the Monster moves, enter your guess in the input field and click "Submit".</li>
+            </ul>
+            <p>Enter your name to begin:</p>
+            <form action="#">
+                <div class="name_form">
+                    <label for="fname"></label>
+                    <input type="text" id="player-name" placeholder="Your Name" name="fname" required>
+                    <button id="start-button-pop" type="button">Lets Start</button>
+                </div>
+                <!-- </form> -->
+        </div>
+    </div>
     <div class="game_board">
-        <div id=cell1 class="cell"> 1</div>
-        <div id=cell2 class="cell"> 2</div>
+        <div id="timer"></div>
+        <div id=cell1 class="cell cell_shape_shift_1"> 1 shape shift</div>
+        <div id=cell2 class="cell cell_direction_shift_1"> 2 direction shift</div>
         <div id=cell3 class="cell"> 3</div>
-        <div id=cell4 class="cell"> 4</div>
-        <div id=cell5 class="cell"> 5</div>
-        <div id=cell6 class="cell"> 6</div>
+        <div id=cell4 class="cell cell_shape_shift_2"> 4 shape shift</div>
+        <div id=cell5 class="cell cell_color_shift_1"> 5 color shift</div>
+        <div id=cell6 class="cell cell_direction_shift_2"> 6 direction shift</div>
         <div id=cell7 class="cell"> 7</div>
-        <div id=cell8 class="cell"> 8</div>
-        <div id=cell9 class="cell"> 9</div>
-        <div id=cell10 class="cell"> 10</div>
+        <div id=cell8 class="cell cell_shape_shift_3"> 8 shape shift</div>
+        <div id=cell9 class="cell cell_color_shift_2"> 9 color shift</div>
+        <div id=cell10 class="cell cell_direction_shift_3"> 10 direction shift </div>
         <div id=cell11 class="cell"> 11</div>
-        <div id=cell12 class="cell"> 12</div>
+        <div id=cell12 class="cell cell_color_shift_3"> 12 color shift</div>
     </div>
     <div class="center-content">
         <div id="generate_div">
-        <button id="generate-button" class="glow-on-hover">Generate Bacteria</button>
-        <img class = 'blue_round_monster'  src="images/blue round.png" alt="img">
-        <img class = 'blue_square_monster'  src="images/blue square.png" alt="img">
-        <img class = 'red_round_monster'  src="images/red round.png" alt="img">
-        <img class = 'red_square_monster' src='images/red square.png' alt="img">
+            <button id="generate-button" class="glow-on-hover">Generate Monster</button>
+            <img class='blue_round_monster' src="../static/images/blue round.png" alt="img">
+            <img class='blue_square_monster' src="../static/images/blue square.png" alt="img">
+            <img class='red_round_monster' src="../static/images/red round.png" alt="img">
+            <img class='red_square_monster' src='../static/images/red square.png' alt="img">
         </div>
-        <form action="#" class="form_main">
+        <div class="form_main">
             <div class="color_select">
-            <label class="label_color" for="input_color"></label>
-            <select name="color" id="input_color">
-                <option value="" disabled selected>Select bacteria color</option>
-                <option value="red">Red</option>
-                <option value="blue">Blue</option>
-            </select>
+                <label class="label_color" for="input_color"></label>
+                <select name="color" id="input_color" required>
+                    <option value="" disabled selected>Select monster color</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                </select>
             </div>
             <div class="shape_select" id="shape-select-container">
+                <label class="label_shape" for="input_shape"></label>
+                <select name="shape" id="input_shape" required>
+                    <option value="" disabled selected>Select monster shape</option>
+                    <option value="square">Square</option>
+                    <option value="round">Round</option>
+                </select>
             </div>
             <button class="button_submit" type="submit" value="submit">Submit</button>
-        </form>
+        </div>
     </div>
 </body>
-<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script type="module" src="../static/js/main.js"></script>
+
 </html>
