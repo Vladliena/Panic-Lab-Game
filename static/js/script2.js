@@ -66,7 +66,7 @@ function generate() {
         </p>
     `;
     generateDiv.innerHTML += monsterProperties;
-    const imageMonster = document.querySelectorAll('img');
+    const imageMonster = document.querySelectorAll('.monst_img');
     imageMonster.forEach(image => image.style.display = 'none');
 
     if (monster.color === 'blue' && monster.shape === 'round') {
@@ -122,12 +122,25 @@ function userInput() {
     const colorSelect = document.getElementById('input_color');
     const shapeSelectContainer = document.getElementById('shape-select-container');
     shapeSelectContainer.style.opacity = 0;
+    const shapeSelect = document.getElementById('input_shape');
+    const roomSelectContainer = document.getElementById('room_select');
+    roomSelectContainer.style.opacity = 0;
 
     colorSelect.addEventListener('change', function () {
         let opacity = 0;
         const fadeInInterval = setInterval(() => {
             opacity += 0.05;
             shapeSelectContainer.style.opacity = opacity;
+            if (opacity >= 1) {
+                clearInterval(fadeInInterval);
+            }
+        }, 50);
+    });
+    shapeSelect.addEventListener('change', function () {
+        let opacity = 0;
+        const fadeInInterval = setInterval(() => {
+            opacity += 0.05;
+            roomSelectContainer.style.opacity = opacity;
             if (opacity >= 1) {
                 clearInterval(fadeInInterval);
             }
@@ -181,13 +194,24 @@ async function handleSubmit() {
         data = await res.json();
         console.log('from server:', data);
         if (user_color === data.color && user_shape === data.shape && user_endcell === data.endcell) {
-            message = "You win!";
+            message = "You Win!";
         } else {
-            message = "Try again!";
+            message = "Try Again! You Lose!";
         }
         console.log(message, `'user choices: ${user_color}, ${user_shape}, ${user_endcell}`);
+        showResult(message,data.color,data.shape,data.endcell);
     }
     catch (e) {
         console.log(e);
     }
+}
+
+
+
+let popResult = document.getElementById("result-popup")
+
+function showResult (message,color_game,shape_game,endcell_game){
+    popResult.style.display = 'block'
+    let popMessage = document.getElementById("result-message")
+    popMessage.innerHTML = `${message} <br><br> Correct answers<br> color:${color_game},shape:${shape_game},end cell:${endcell_game}`
 }

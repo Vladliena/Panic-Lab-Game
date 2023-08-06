@@ -26,7 +26,8 @@ def index():
         if request.method == 'GET':
             last_monster_entry = start_monster_data[-1]
             monster = list(last_monster_entry.values())[0]
-            changed_monster, game_steps = move_marker(monster)
+            changed_monster = move_marker(monster)
+            #changed_monster, game_steps = move_marker(monster)
             print(changed_monster)
             return json.dumps(changed_monster), 201    
 
