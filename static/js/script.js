@@ -1,5 +1,6 @@
 //Welcome Screen
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
     const startButton = document.getElementById("start-button-pop");
@@ -108,7 +109,7 @@ function startTimer(steps) {
             timerElement.style.display = 'none'
             return userInput()
         }
-    }, 2000);
+    }, 100);
 }
 
 function userInput() {
@@ -131,3 +132,6 @@ function userInput() {
         }, 50);
     });
 }
+
+import { result } from "./main.js";
+console.log(result);

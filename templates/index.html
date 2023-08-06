@@ -26,13 +26,13 @@
                 <li>After the Monster moves, enter your guess in the input field and click "Submit".</li>
             </ul>
             <p>Enter your name to begin:</p>
-            <form action="#">
+            <form method="post" class="form_answer" method="post">
                 <div class="name_form">
                     <label for="fname"></label>
                     <input type="text" id="player-name" placeholder="Your Name" name="fname" required>
                     <button id="start-button-pop" type="button">Lets Start</button>
                 </div>
-                <!-- </form> -->
+
         </div>
     </div>
     <div class="game_board">
@@ -75,12 +75,15 @@
                     <option value="round">Round</option>
                 </select>
             </div>
-            <button class="button_submit" type="submit" value="submit">Submit</button>
+            <button id="button_submit" class="button_submit" type="submit">Submit</button>
         </div>
+        </form>
     </div>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script type='module' src="{{ url_for('static', filename='js/script.js') }}"></script>
 <script type="module" src="../static/js/main.js"></script>
+<script type="module" src="../static/js/result.js"></script>
 
 </html>
