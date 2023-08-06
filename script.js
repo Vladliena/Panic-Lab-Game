@@ -113,7 +113,7 @@ function startTimer(steps) {
             timerElement.style.display = 'none'
             return userInput()
         }
-    }, 2000);
+    }, 100);
 }
 
 
@@ -127,6 +127,9 @@ function userInput() {
     const colorSelect = document.getElementById('input_color');
     const shapeSelectContainer = document.getElementById('shape-select-container');
     shapeSelectContainer.style.opacity = 0;
+    const shapeSelect = document.getElementById('input_shape');
+    const roomSelectContainer = document.getElementById('room_select');
+    roomSelectContainer.style.opacity = 0;
 
     colorSelect.addEventListener('change', function () {
         let opacity = 0;
@@ -138,5 +141,18 @@ function userInput() {
             }
         }, 50);
     });
+    shapeSelect.addEventListener('change', function () {
+        let opacity = 0;
+        const fadeInInterval = setInterval(() => {
+            opacity += 0.05;
+            roomSelectContainer.style.opacity = opacity;
+            if (opacity >= 1) {
+                clearInterval(fadeInInterval);
+            }
+        }, 50);
+    });
 }
 
+
+    // document.querySelector('#input_color').value = '';
+    // document.querySelector('#input_shape').value = '';

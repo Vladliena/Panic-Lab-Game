@@ -162,7 +162,8 @@ body {
 
 
 select {
-  padding: 10px 20px;
+  font-family: "Martian Mono", monospace;
+  padding: 10px 10px;
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -270,7 +271,8 @@ img {
 }
 
 .popup-content button,
-.start_button,.button_submit {
+.start_button,
+.button_submit {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #ff6347;
@@ -300,4 +302,13 @@ img {
   top: 260px;
   left: 260px;
   display: none;
+}
+
+#input_room {
+  font-family: "Martian Mono", monospace;
+  width: 245px;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 15px;
 }
