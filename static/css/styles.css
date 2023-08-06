@@ -14,6 +14,11 @@ body {
   height: 130px;
   background-color: #eeeeee;
   border: 2px solid #cccccc;
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .game_board {
@@ -88,7 +93,7 @@ body {
 
 #generate-button {
   position: absolute;
-  top: 125px;
+  top: 75px;
   font-family: "Martian Mono", monospace;
 }
 
@@ -107,7 +112,7 @@ body {
 
 .glow-on-hover:before {
   content: '';
-  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  background: linear-gradient(45deg, #ff0000, #002bff, #7a00ff, #ff0000);
   position: absolute;
   top: -2px;
   left: -2px;
@@ -182,7 +187,7 @@ select {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -30px
+  top: -50px
 }
 
 .monster_text {
@@ -209,6 +214,33 @@ img {
 
 .marker {
   background-color: red;
+}
+
+#result-popup {
+  display: none;
+  position: fixed;
+  padding: 0 20px;
+  top: 0;
+  left: 0;
+  width: 95%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.popup-result-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Martian Mono", monospace;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.popup-result-content>h2 {
+  color: #e74c3c;
 }
 
 .popup {
@@ -299,8 +331,8 @@ img {
   border-radius: 5px;
   display: inline-block;
   position: absolute;
-  top: 260px;
-  left: 260px;
+  top: 300px;
+  left: 300px;
   display: none;
 }
 
@@ -311,4 +343,22 @@ img {
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 15px;
+}
+
+.color_shift {
+  width: 90px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.shape_shift {
+  width: 100px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.direction_shift {
+  width: 130px;
+  display: block;
+  margin-bottom: 10px;
 }

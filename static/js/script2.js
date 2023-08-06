@@ -1,4 +1,6 @@
 //Welcome Screen
+// import { result } from "./main.js";
+// console.log(result());
 
 document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
@@ -48,12 +50,11 @@ const generateDiv = document.getElementById('generate_div');
 const buttonGenerate = document.getElementById('generate-button');
 buttonGenerate.addEventListener('click', generate)
 
-
+let monster = generateRandomMonster();
+//export let start_monster = monster; // <--- this is the variable I want to send to the server
 function generate() {
     buttonGenerate.style.display = 'none';
-    let monster = generateRandomMonster();
-    monsterSteps = Number(monster.steps)
-    console.log(monster);
+    //here was monsterSteps variable but it was not used anywhere
     const monsterProperties = `
         <p class="monster_text">
             <span>Monster properties:</span><br><br>
@@ -61,10 +62,11 @@ function generate() {
             Shape: ${monster.shape}<br>
             Direction: ${monster.direction}<br>
             Steps: ${monster.steps}<br>
+            First room: ${monster.startcell}<br>
         </p>
     `;
     generateDiv.innerHTML += monsterProperties;
-    const imageMonster = document.querySelectorAll('img');
+    const imageMonster = document.querySelectorAll('.monst_img');
     imageMonster.forEach(image => image.style.display = 'none');
 
     if (monster.color === 'blue' && monster.shape === 'round') {
@@ -77,7 +79,7 @@ function generate() {
         imageMonster[2].style.display = 'block';
     }
 
-    generationComplete = true;
+    let generationComplete = true;  //<--- this get me an error without the let
     if (generationComplete) {
         const generatedDiv = document.getElementById('generate_div');
         const startButton = document.createElement('button');
@@ -89,12 +91,8 @@ function generate() {
             generatedDiv.style.display = 'none';
         });
     }
-    return monster
+    handleGenerate(monster);
 }
-
-
-// Start Timer
-
 
 let countdown = 0;
 
@@ -115,9 +113,6 @@ function startTimer(steps) {
         }
     }, 100);
 }
-
-
-// User Input
 
 function userInput() {
     const form = document.getElementsByClassName('form_main')[0]
@@ -154,5 +149,58 @@ function userInput() {
 }
 
 
-    // document.querySelector('#input_color').value = '';
-    // document.querySelector('#input_shape').value = '';
+$(document).ready(function () {
+    // $("#generate-button").click(function () {
+    // handleGenerate();
+    // });
+
+    $("#button_submit").click(function (event) {
+        event.preventDefault();
+        handleSubmit();
+    });
+
+});
+
+async function handleGenerate(start_monster) {
+
+    console.log('handleGenerate-------');
+    try {
+        const res = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(start_monster)
+        });
+        const data = await res.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+let data
+let message = "Something went wrong!";
+
+async function handleSubmit() {
+
+    console.log('handleSubmit-------');
+    try {
+        const res = await fetch("/", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        let user_color = document.querySelector('#input_color').value
+        let user_shape = document.querySelector('#input_shape').value
+        let user_endcell = parseInt(document.querySelector('#input_room').value);
+        data = await res.json();
+        console.log('from server:', data);
+        if (user_color === data.color && user_shape === data.shape && user_endcell === data.endcell) {
+            message = "You win!";
+        } else {
+            message = "Try again!";
+        }
+        console.log(message, `'user choices: ${user_color}, ${user_shape}, ${user_endcell}`);
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
