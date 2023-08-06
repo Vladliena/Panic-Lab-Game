@@ -194,13 +194,24 @@ async function handleSubmit() {
         data = await res.json();
         console.log('from server:', data);
         if (user_color === data.color && user_shape === data.shape && user_endcell === data.endcell) {
-            message = "You win!";
+            message = "You Win!";
         } else {
-            message = "Try again!";
+            message = "Try Again! You Lose!";
         }
         console.log(message, `'user choices: ${user_color}, ${user_shape}, ${user_endcell}`);
+        showResult(message,data.color,data.shape,data.endcell);
     }
     catch (e) {
         console.log(e);
     }
+}
+
+
+
+let popResult = document.getElementById("result-popup")
+
+function showResult (message,color_game,shape_game,endcell_game){
+    popResult.style.display = 'block'
+    let popMessage = document.getElementById("result-message")
+    popMessage.innerHTML = `${message} <br><br> Correct answers<br> color:${color_game},shape:${shape_game},end cell:${endcell_game}`
 }
