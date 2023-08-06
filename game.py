@@ -20,13 +20,14 @@ def move_marker(monster):
     if current_room in reversed_rooms:
         direction *= -1
 
-    if current_room in reversed_color:
+    if current_room-1 in reversed_color:
         color *= -1    
 
-    if current_room in reversed_shape:
+    if current_room-1 in reversed_shape:
         shape *= -1
 
     game_steps = []
+    only_steps = []
 
     for i in range(steps):
         current_room = get_next_room(current_room, direction)
@@ -39,9 +40,10 @@ def move_marker(monster):
         if current_room in reversed_shape:        
             shape *= -1
 
-        step_direction = 'right' if direction == 1 else 'left' 
-        step_color = 'red' if color == 1 else 'blue' 
-        step_shape = 'round' if shape == 1 else 'square'  
+        step_direction = 'clockwise' if direction == 1 else 'counterclock-wise'
+        step_color = 'red' if color == 1 else 'blue'
+        step_shape = 'round' if shape == 1 else 'square'
+        print(step_color, step_shape, step_direction)  
 
         game_steps.append({'color': step_color, 'shape': step_shape, 'direction': start_direction, 'steps': i + 1, 'cell': current_room})
 

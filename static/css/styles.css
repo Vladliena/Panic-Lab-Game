@@ -93,7 +93,7 @@ body {
 
 #generate-button {
   position: absolute;
-  top: 75px;
+  top: 100px;
   font-family: "Martian Mono", monospace;
 }
 
@@ -187,7 +187,7 @@ select {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -50px
+  top: -30px
 }
 
 .monster_text {
@@ -343,6 +343,11 @@ img {
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 15px;
+}
+
+#quit-button,#new-game-button{
+  font-family: "Martian Mono", monospace;
+  font-size: 16px;
 }
 
 .color_shift {

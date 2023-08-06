@@ -211,7 +211,16 @@ async function handleSubmit() {
 let popResult = document.getElementById("result-popup")
 
 function showResult (message,color_game,shape_game,endcell_game){
+    const playerNameMain = document.getElementById("player-name").value;
     popResult.style.display = 'block'
     let popMessage = document.getElementById("result-message")
-    popMessage.innerHTML = `${message} <br><br> Correct answers<br> color:${color_game},shape:${shape_game},end cell:${endcell_game}`
+    popMessage.innerHTML = `${playerNameMain}!<br>${message} <br><br> Correct answers<br> color:${color_game},shape:${shape_game},end cell:${endcell_game}`
+    let quitButton = document.getElementById("quit-button")
+    quitButton.addEventListener('click',function(){
+        popMessage.innerHTML = `GAME OVER`
+        popMessage.style.color = '#ff6347'
+        quitButton.style.display = 'none'
+        let resultHeader = document.getElementById("result-header")
+        resultHeader.style.display = 'none'
+    });
 }
