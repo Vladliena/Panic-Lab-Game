@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import json
 from datetime import datetime
 from game import move_marker
@@ -20,6 +20,7 @@ def index():
         if request.method == 'POST':
             monster = json.loads(request.data)
             start_monster_data.append({datetime.now().strftime("%Y-%m-%d %H:%M:%S") : monster})
+            print(monster)
             return monster, 201 
 
         if request.method == 'GET':

@@ -75,6 +75,11 @@
                     <option value="round">Round</option>
                 </select>
             </div>
+            <div id='room_select'>
+                <label class="label_room" for="input_room"></label>
+                <input id="input_room" type="number" placeholder="Room number" name="input_room" min="1" max="12"
+                    required>
+            </div>
             <button id="button_submit" class="button_submit" type="submit">Submit</button>
         </div>
         </form>
@@ -83,7 +88,6 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
 <script type='module' src="{{ url_for('static', filename='js/script.js') }}"></script>
-<script type="module" src="../static/js/main.js"></script>
-<script type="module" src="../static/js/result.js"></script>
-
+<!-- <script type="module" src="../static/js/main.js"></script> -->
+<!--  -->
 </html>

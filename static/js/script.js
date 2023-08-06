@@ -1,5 +1,6 @@
 //Welcome Screen
-
+// import { result } from "./main.js";
+// console.log(result());
 
 document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
@@ -50,7 +51,7 @@ const buttonGenerate = document.getElementById('generate-button');
 buttonGenerate.addEventListener('click', generate)
 
 let monster = generateRandomMonster();
-export let start_monster = monster; // <--- this is the variable I want to send to the server
+//export let start_monster = monster; // <--- this is the variable I want to send to the server
 function generate() {
     buttonGenerate.style.display = 'none';
     //here was monsterSteps variable but it was not used anywhere
@@ -61,6 +62,7 @@ function generate() {
             Shape: ${monster.shape}<br>
             Direction: ${monster.direction}<br>
             Steps: ${monster.steps}<br>
+            First room: ${monster.startcell}<br>
         </p>
     `;
     generateDiv.innerHTML += monsterProperties;
@@ -89,7 +91,7 @@ function generate() {
             generatedDiv.style.display = 'none';
         });
     }
-    return monster
+    handleGenerate(monster);
 }
 
 let countdown = 0;
@@ -133,5 +135,59 @@ function userInput() {
     });
 }
 
-import { result } from "./main.js";
-console.log(result);
+
+$(document).ready(function () {
+    // $("#generate-button").click(function () {
+    // handleGenerate();
+    // });
+
+    $("#button_submit").click(function (event) {
+        event.preventDefault();
+        handleSubmit();
+    });
+
+});
+
+async function handleGenerate(start_monster) {
+
+    console.log('handleGenerate-------');
+    try {
+        const res = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(start_monster)
+        });
+        const data = await res.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+let data
+let message = "Something went wrong!";
+
+async function handleSubmit() {
+
+    console.log('handleSubmit-------');
+    try {
+        const res = await fetch("/", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        let user_color = document.querySelector('#input_color').value
+        let user_shape = document.querySelector('#input_shape').value
+        let user_endcell = parseInt(document.querySelector('#input_room').value);
+        data = await res.json();
+        console.log('from server:', data);
+        if (user_color === data.color && user_shape === data.shape && user_endcell === data.endcell) {
+            message = "You win!";
+        } else {
+            message = "Try again!";
+        }
+        console.log(message, `'user choices: ${user_color}, ${user_shape}, ${user_endcell}`);
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

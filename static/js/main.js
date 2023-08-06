@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 async function handleGenerate() {
 
-    console.log('handlesubmit-------');
+    console.log('handleGenerate-------');
     try {
         const res = await fetch("/", {
             method: "POST",
@@ -32,7 +32,7 @@ let message = "Something went wrong!";
 
 async function handleSubmit() {
 
-    console.log('handleGenerate-------');
+    console.log('handleSubmit-------');
     try {
         const res = await fetch("/", {
             method: "GET",
@@ -40,14 +40,15 @@ async function handleSubmit() {
         });
         let color = document.querySelector('#input_color').value;
         let shape = document.querySelector('#input_shape').value;
+        let endcell = parseInt(document.querySelector('#input_room').value);
         data = await res.json();
-
-        if (color === data.color && shape === data.shape) {
+        console.log(data);
+        if (color === data.color && shape === data.shape && endcell === data.endcell) {
             message = "You win!";
         } else {
             message = "Try again!";
         }
-        console.log(message, color, shape);
+        console.log(message, color, shape, endcell);
         console.log(data);
     }
     catch (e) {
@@ -55,4 +56,13 @@ async function handleSubmit() {
     }
 }
 
-export let result = [message, data];
+export let result = main_result(message, data);
+
+function main_result(message, data) {
+    try {
+        return [message, data[0], data[1], data[2]];
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
