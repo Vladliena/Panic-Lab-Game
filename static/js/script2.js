@@ -114,7 +114,7 @@ function startTimer(steps) {
             timerElement.style.display = 'none'
             return userInput()
         }
-    }, 100);
+    }, 500);
 }
 
 function userInput() {
