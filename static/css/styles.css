@@ -367,3 +367,36 @@ img {
   display: block;
   margin-bottom: 10px;
 }
+
+
+#message-cloud{
+background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  display: none;
+}
+
+#message-cloud p {
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.highlight{
+box-shadow: 0 0 10px 5px #e74c3c;
+  /* or any other shadow style you prefer */
+  animation: highlightAnimation 3s ease-in-out;
+}
+
+@keyframes highlightAnimation {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px 5px #002bff;
+  }
+
+  50% {
+    box-shadow: none;
+  }
+}

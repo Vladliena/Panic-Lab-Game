@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const monsterData = {
     color: ['red', 'blue'],
     shape: ['round', 'square'],
-    direction: ['left', 'right'],
+    direction: ['counterclock-wise', 'clockwise'],
     steps: [6, 7, 8, 9, 10, 11, 12],
     startcell: () => Math.floor(Math.random() * 7) + 6
 };
@@ -65,6 +65,8 @@ function generate() {
             First room: ${monster.startcell}<br>
         </p>
     `;
+    const startCell = document.getElementById(`cell${monster.startcell}`);
+    startCell.classList.add('highlight');
     generateDiv.innerHTML += monsterProperties;
     const imageMonster = document.querySelectorAll('.monst_img');
     imageMonster.forEach(image => image.style.display = 'none');
@@ -74,9 +76,9 @@ function generate() {
     } else if (monster.color === 'blue' && monster.shape === 'square') {
         imageMonster[1].style.display = 'block';
     } else if (monster.color === 'red' && monster.shape === 'square') {
-        imageMonster[3].style.display = 'block';
-    } else if (monster.color === 'red' && monster.shape === 'round') {
         imageMonster[2].style.display = 'block';
+    } else if (monster.color === 'red' && monster.shape === 'round') {
+        imageMonster[3].style.display = 'block';
     }
 
     let generationComplete = true;  //<--- this get me an error without the let
@@ -89,6 +91,7 @@ function generate() {
         startButton.addEventListener("click", function () {
             startTimer(monster.steps);
             generatedDiv.style.display = 'none';
+            startCell.classList.remove('highlight');
         });
     }
     handleGenerate(monster);
@@ -207,20 +210,44 @@ async function handleSubmit() {
 }
 
 
+let popResult = document.getElementById("result-popup");
 
-let popResult = document.getElementById("result-popup")
-
-function showResult (message,color_game,shape_game,endcell_game){
+function showResult(message, color_game, shape_game, endcell_game) {
     const playerNameMain = document.getElementById("player-name").value;
-    popResult.style.display = 'block'
-    let popMessage = document.getElementById("result-message")
-    popMessage.innerHTML = `${playerNameMain}!<br>${message} <br><br> Correct answers<br> color:${color_game},shape:${shape_game},end cell:${endcell_game}`
-    let quitButton = document.getElementById("quit-button")
-    quitButton.addEventListener('click',function(){
-        popMessage.innerHTML = `GAME OVER`
-        popMessage.style.color = '#ff6347'
-        quitButton.style.display = 'none'
-        let resultHeader = document.getElementById("result-header")
-        resultHeader.style.display = 'none'
+    popResult.style.display = 'block';
+    const imageMonster = document.querySelectorAll('.monst_img');
+    imageMonster.forEach(image => image.style.display = 'none');
+
+    let popMessage = document.getElementById("result-message");
+    popMessage.innerHTML = `${playerNameMain}!<br>${message} <br><br> Correct answers<br> color:${color_game} | shape:${shape_game} | endcell:${endcell_game}`;
+
+    let quitButton = document.getElementById("quit-button");
+    quitButton.addEventListener('click', function () {
+        popMessage.innerHTML = `GAME OVER`;
+        popMessage.style.color = '#ff6347';
+        quitButton.style.display = 'none';
+        let resultHeader = document.getElementById("result-header");
+        resultHeader.style.display = 'none';
+        imageMonster.forEach(image => image.style.display = 'none');
     });
+
+    let imageIndex = -1;
+    if (color_game === 'blue' && shape_game === 'round') {
+        imageIndex = 0;
+    } else if (color_game === 'blue' && shape_game === 'square') {
+        imageIndex = 1;
+    } else if (color_game === 'red' && shape_game === 'square') {
+        imageIndex = 2;
+    } else if (color_game === 'red' && shape_game === 'round') {
+        imageIndex = 3;
+    }
+
+    if (imageIndex >= 0) {
+        popResult.appendChild(imageMonster[imageIndex]);
+        imageMonster[imageIndex].style.display = 'block';
+        imageMonster[imageIndex].style.position = 'absolute';
+        imageMonster[imageIndex].style.top = '50px';
+        imageMonster[imageIndex].style.left = '450px';
+        imageMonster[imageIndex].style.width = '100px';
+    }
 }
