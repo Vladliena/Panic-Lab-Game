@@ -1,0 +1,11 @@
+Lidia Khait & Vladlena Sotnikova: monster changing shape and format game
+First of all, I am happy you were daring enough to create all the logic from your own. Amazing!
+The game is really fun and I can see all the work and time you invested on it :) 
+Your knowledge about JS is impressive, but unfortanelly we didn't studied it yet so it is not one of the criteria :\
+My only comment would be that you didn't use much of the concepts from OOP and Databases 
+
+video presentation in time : yes 10/10
+Python OOP: 7/10
+Databases: 0/10
+API/JSON: 10/10
+General score: 8
